@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option go_package = "github.com/aforamitdev/server-pilot/internal/proto/logcollector_proto";
+
+
+
+
+service LogCollector {
+  }
