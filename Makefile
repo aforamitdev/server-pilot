@@ -11,5 +11,5 @@ generate_grpc:
 run_commander:
 	go run ./cmd/spilothq/spilothq.go
 
-lint_proto:
-    protolint lint ./internal/proto/**/*.proto
+# lint_proto:
+    # protolint lint ./internal/proto/**/*.proto
