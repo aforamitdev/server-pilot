@@ -6,8 +6,8 @@ Server Pilot is a go based tool to mange remote VPS.
 > coming soon
 
 ## Rodemap 
-- [] Log manger
-- [] User & groups managment 
+- [ ] Log manger
+- [ ] User & groups managment 
 
 ## Contributing
 
