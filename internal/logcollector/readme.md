@@ -34,3 +34,10 @@ Syslog servers are used to send diagnostic and monitoring data. The data can the
 
 
 ref: https://stackify.com/syslog-101/
+
+
+```
+rsylog.conf
+
+*.* action(type="omfwd" target="127.0.0.1" port="5000" protocol="udp")
+```
