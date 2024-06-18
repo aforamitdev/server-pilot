@@ -42,7 +42,8 @@ func serve(ctx context.Context, address string) error {
 				doneChan <- err
 				// return err
 			}
-			fmt.Printf("address: '%+v' bytes: '%d' request: '%s'", addr, n, string(buffer))
+			fmt.Println(n, addr)
+			fmt.Printf("'%s'", string(buffer))
 		}
 	}()
 

@@ -7,6 +7,7 @@ import (
 
 	system_proto "github.com/aforamitdev/server-pilot/internal/proto/system"
 	"github.com/aforamitdev/server-pilot/internal/system"
+	"github.com/aforamitdev/server-pilot/pkg/collector"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 	"google.golang.org/grpc"
@@ -45,6 +46,12 @@ func run(ctx context.Context, log *logger.Logger) {
 	system_proto.RegisterInformerServer(grpcServer, infoService)
 
 	err = grpcServer.Serve(lis)
+
+	logChan := make(chan string, 2048)
+	collector := collector.NewCollector("5000")
+	collector.StreamTo(logChan)
+
+	select {}
 
 	if err != nil {
 		log.Info(ctx, "impossible to server %s", err)
