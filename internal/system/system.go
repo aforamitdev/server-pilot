@@ -2,6 +2,7 @@ package system
 
 import (
 	"context"
+	"time"
 
 	system_proto "github.com/aforamitdev/server-pilot/internal/proto/system"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
@@ -22,4 +23,16 @@ func (s SystemInformer) GetSystem(ctx context.Context, req *system_proto.SystemR
 	return &system_proto.SystemResponse{
 		Name: "Amti rai",
 	}, nil
+}
+
+func (s SystemInformer) GetLog(ctx context.Context, req *system_proto.LogRequest, resp system_proto.Informer_GetLogsServer) {
+
+	for {
+
+		resp.Send(&system_proto.LogReponse{
+			Log: "12",
+		})
+		time.Sleep(time.Second * 1)
+	}
+
 }

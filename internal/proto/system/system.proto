@@ -7,11 +7,18 @@ message SystemRequest {
 }
 
 message SystemResponse {
-    
   string name = 1;
+}
 
+message LogReponse{
+  string log=1;
+
+}
+
+message LogRequest{
 }
 
 service Informer {
   rpc GetSystem(SystemRequest) returns (SystemResponse);
+  rpc GetLogs(LogRequest) returns (stream LogReponse);
 }
