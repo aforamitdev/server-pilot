@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"fmt"
+	"io"
 	"os"
 	"time"
 
@@ -33,14 +35,32 @@ func main() {
 	defer conn.Close()
 
 	client := pb.NewInformerClient(conn)
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+
 	defer cancel()
 
 	r, err := client.GetSystem(ctx, &pb.SystemRequest{})
 
+	stream, err := client.GetLogs(context.Background(), &pb.LogRequest{})
+
+	fmt.Println(r.Name)
+
 	if err != nil {
-		log.Error(ctx, "fail to get call getSystem", err)
+		panic(err)
 	}
-	log.Info(ctx, r.GetName())
+
+	for {
+		resp, err := stream.Recv()
+		if err == io.EOF {
+			return
+		} else if err == nil {
+			fmt.Printf(resp.String() + "\n")
+			// fmt.Println(valStr)
+		}
+		if err != nil {
+			panic(err)
+		}
+	}
 
 }

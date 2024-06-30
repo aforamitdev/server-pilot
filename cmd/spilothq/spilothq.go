@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"os"
 
@@ -37,6 +38,13 @@ func run(ctx context.Context, log *logger.Logger) {
 		log.Error(ctx, "cannot create listener: %s", err)
 	}
 
+	// certificate file
+	// cred, err := credentials.NewServerTLSFromFile("./cert/ca.cert", "./cert/ca.key")
+
+	// if err != nil {
+	// log.Error(ctx, "fail to generate cert file", err)
+	// }
+
 	grpcServer := grpc.NewServer()
 	reflection.Register(grpcServer)
 
@@ -44,8 +52,8 @@ func run(ctx context.Context, log *logger.Logger) {
 
 	system_proto.RegisterInformerServer(grpcServer, infoService)
 
+	fmt.Printf("Server running...")
 	err = grpcServer.Serve(lis)
-
 	if err != nil {
 		log.Info(ctx, "impossible to server %s", err)
 	}

@@ -2,7 +2,9 @@ package system
 
 import (
 	"context"
-	"time"
+	"fmt"
+	"log"
+	"net"
 
 	system_proto "github.com/aforamitdev/server-pilot/internal/proto/system"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
@@ -25,14 +27,33 @@ func (s SystemInformer) GetSystem(ctx context.Context, req *system_proto.SystemR
 	}, nil
 }
 
-func (s SystemInformer) GetLog(ctx context.Context, req *system_proto.LogRequest, resp system_proto.Informer_GetLogsServer) {
+func (s SystemInformer) GetLogs(req *system_proto.LogRequest, resp system_proto.Informer_GetLogsServer) error {
+
+	addr := net.UDPAddr{
+		Port: 5000,
+		IP:   net.ParseIP("localhost"),
+	}
+	conn, err := net.ListenUDP("udp", &addr)
+	if err != nil {
+		panic(err)
+	}
+	defer conn.Close()
+
+	buf := make([]byte, 1024)
 
 	for {
 
-		resp.Send(&system_proto.LogReponse{
-			Log: "12",
-		})
-		time.Sleep(time.Second * 1)
+		//time sleep to simulate server process time
+		rlen, remote, err := conn.ReadFrom(buf)
+		if err != nil {
+			fmt.Println("error listening")
+		}
+		fmt.Println(rlen, remote)
+		p := system_proto.LogResponse{Log: string(buf[:rlen])}
+
+		if err := resp.Send(&p); err != nil {
+			log.Printf("send error %v", err)
+		}
 	}
 
 }
