@@ -20,5 +20,6 @@ message LogRequest{
 
 service Informer {
   rpc GetSystem(SystemRequest) returns (SystemResponse);
+  
   rpc GetLogs(LogRequest) returns (stream LogResponse);
 }
