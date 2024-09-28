@@ -8,6 +8,7 @@ import (
 
 	system_proto "github.com/aforamitdev/server-pilot/internal/proto/system"
 	"github.com/aforamitdev/server-pilot/internal/system"
+	"github.com/aforamitdev/server-pilot/pkg/log_collector"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 	"google.golang.org/grpc"
@@ -47,14 +48,29 @@ func run(ctx context.Context, log *logger.Logger) {
 
 	grpcServer := grpc.NewServer()
 	reflection.Register(grpcServer)
-
 	infoService := system.NewSystemInformer(log)
-
 	system_proto.RegisterInformerServer(grpcServer, infoService)
 
 	fmt.Printf("Server running...")
+	logstream := make(chan string)
+
+	lc := log_collector.NewLogCollector()
+	conn, err := lc.StartLogCollector(5001, net.IP("0.0.0.0"))
+	if err != nil {
+		fmt.Println("error starting log collector")
+	}
+	fmt.Println(conn)
+	lc.StreamLogs(logstream)
+
 	err = grpcServer.Serve(lis)
+
 	if err != nil {
 		log.Info(ctx, "impossible to server %s", err)
+	}
+
+	select {
+	case ls := <-logstream:
+		fmt.Println(ls)
+
 	}
 }

@@ -2,6 +2,7 @@ package log_collector
 
 import (
 	"errors"
+	"fmt"
 	"net"
 )
 
@@ -10,7 +11,9 @@ type LogCollector struct {
 	conn *net.UDPConn
 }
 
-func NewLogCollector() {}
+func NewLogCollector() *LogCollector {
+	return &LogCollector{}
+}
 
 func (l *LogCollector) SetUpLog(port int, addressIP net.IP) {
 	l.addr = net.UDPAddr{Port: port, IP: addressIP}
@@ -25,10 +28,24 @@ func (l *LogCollector) StartLogCollector(port int, address net.IP) (*net.UDPConn
 	if err != nil {
 		return nil, errors.New("fail to start log listener server")
 	}
-	defer conn.Close()
+
+	l.conn = conn
 	return conn, nil
 }
 
-func (l *LogCollector) CloseLogCollector() {
+func (l *LogCollector) StreamLogs(logStream chan string) {
+	// logStream := make(chan string)
+
+	buf := make([]byte, 1024)
+
+	rlan, remote, err := l.conn.ReadFrom(buf)
+	if err != nil {
+		fmt.Println("error listening to log")
+	}
+	fmt.Println(remote)
+	for {
+
+		logStream <- string(buf[:rlan])
+	}
 
 }
