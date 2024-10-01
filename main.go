@@ -8,7 +8,7 @@ import (
 func main() {
 
 	addr := net.UDPAddr{
-		Port: 5050,
+		Port: 5000,
 		IP:   net.ParseIP("localhost"),
 	}
 	conn, err := net.ListenUDP("udp", &addr)
