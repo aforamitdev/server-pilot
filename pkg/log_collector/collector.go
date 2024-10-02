@@ -40,7 +40,7 @@ func (l *LogCollector) StreamLogs(logStream chan string) {
 
 	rlan, remote, err := l.conn.ReadFrom(buf)
 	if err != nil {
-		fmt.Println("error listening to log")
+		fmt.Println("error listening to log tst")
 	}
 	fmt.Println(remote)
 	for {
