@@ -5,7 +5,7 @@ tmp_dir = "tmp"
 [build]
   args_bin = []
   bin = "./tmp/hq"
-  cmd = "go build -o ./tmp/hq ./app/spilothq/spilothq.go"
+  cmd = "go build -o ./tmp/hq ./app/spilothq/main.go"
   delay = 1000
   exclude_dir = ["assets", "tmp", "vendor", "testdata","cert","zarf"]
   exclude_file = []

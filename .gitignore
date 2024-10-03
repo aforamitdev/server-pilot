@@ -4,5 +4,4 @@ settings.json
 client/build/bin
 client/node_modules
 client/frontend/dist
-tmp/main
-tmp/hq
+tmp

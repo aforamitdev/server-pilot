@@ -12,3 +12,6 @@ run_commander:
 devhq:
 	air -c ./zarf/air/hq.toml
 	
+devadmin:
+	air -c ./zarf/air/admin.toml
+	
