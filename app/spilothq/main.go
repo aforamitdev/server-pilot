@@ -36,7 +36,6 @@ func run(ctx context.Context, log *logger.Logger) {
 	if err != nil {
 		log.Error(ctx, "cannot create listener: %s", err)
 	}
-	fmt.Printf("err")
 	log.Info(ctx, "main: initializing API Support")
 
 	shutdown := make(chan os.Signal, 1)

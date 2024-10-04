@@ -2,12 +2,8 @@ package main
 
 import (
 	"context"
-	"fmt"
-	"io"
 	"os"
-	"time"
 
-	pb "github.com/aforamitdev/server-pilot/internal/proto/system"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 	"google.golang.org/grpc"
@@ -34,33 +30,33 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := pb.NewInformerClient(conn)
+	// client := pb.NewInformerClient(conn)
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	// ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 
-	defer cancel()
+	// defer cancel()
 
-	r, err := client.GetSystem(ctx, &pb.SystemRequest{})
+	// r, err := client.GetSystem(ctx, &pb.SystemRequest{})
 
-	stream, err := client.GetLogs(context.Background(), &pb.LogRequest{})
+	// stream, err := client.GetLogs(context.Background(), &pb.LogRequest{})
 
-	fmt.Println(r.Name)
+	// fmt.Println(r.Name)
 
-	if err != nil {
-		panic(err)
-	}
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	for {
-		resp, err := stream.Recv()
-		if err == io.EOF {
-			return
-		} else if err == nil {
-			fmt.Printf(resp.String() + "\n")
-			// fmt.Println(valStr)
-		}
-		if err != nil {
-			panic(err)
-		}
-	}
+	// for {
+	// 	resp, err := stream.Recv()
+	// 	if err == io.EOF {
+	// 		return
+	// 	} else if err == nil {
+	// 		fmt.Printf(resp.String() + "\n")
+	// 		// fmt.Println(valStr)
+	// 	}
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+	// }
 
 }
