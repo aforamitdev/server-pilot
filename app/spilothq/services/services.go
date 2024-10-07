@@ -17,7 +17,6 @@ func NewServer(ctx context.Context, rlog *rsyslog.RLog) (*Server, error) {
 	grpcServer := grpc.NewServer()
 
 	reflection.Register(grpcServer)
-
 	return &Server{GrpcServer: grpcServer, rlog: rlog}, nil
 
 }
