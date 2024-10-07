@@ -1,4 +1,9 @@
+gen:
+	protoc  --go_out=./internal --go-grpc_out=./internal internal/proto/*.proto;
+	
 
+# gen:
+# 	protoc --proto_path=internal/proto internal/proto/*.proto --go_out=plugins=grpc:pb
 
 generate_grpc:
 	protoc \

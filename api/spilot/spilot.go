@@ -3,9 +3,7 @@ package main
 import (
 	"context"
 	"os"
-	"time"
 
-	pb "github.com/aforamitdev/server-pilot/internal/proto/system"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 	"google.golang.org/grpc"
@@ -32,15 +30,33 @@ func main() {
 	}
 	defer conn.Close()
 
-	client := pb.NewInformerClient(conn)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
+	// client := pb.NewInformerClient(conn)
 
-	r, err := client.GetSystem(ctx, &pb.SystemRequest{})
+	// ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 
-	if err != nil {
-		log.Error(ctx, "fail to get call getSystem", err)
-	}
-	log.Info(ctx, r.GetName())
+	// defer cancel()
+
+	// r, err := client.GetSystem(ctx, &pb.SystemRequest{})
+
+	// stream, err := client.GetLogs(context.Background(), &pb.LogRequest{})
+
+	// fmt.Println(r.Name)
+
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// for {
+	// 	resp, err := stream.Recv()
+	// 	if err == io.EOF {
+	// 		return
+	// 	} else if err == nil {
+	// 		fmt.Printf(resp.String() + "\n")
+	// 		// fmt.Println(valStr)
+	// 	}
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+	// }
 
 }
