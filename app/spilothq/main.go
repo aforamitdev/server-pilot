@@ -9,6 +9,7 @@ import (
 	"syscall"
 
 	"github.com/aforamitdev/server-pilot/app/spilothq/services"
+	"github.com/aforamitdev/server-pilot/internal/rsyslog"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 )
@@ -41,15 +42,27 @@ func run(ctx context.Context, log *logger.Logger) {
 	shutdown := make(chan os.Signal, 1)
 	signal.Notify(shutdown, os.Interrupt, syscall.SIGTERM)
 
-	grpcService := services.Services("dev", shutdown, log)
+	// start rsys log listener
+	rlog, err := rsyslog.NewLogListener(":5000")
+	if err != nil {
+		log.Error(ctx, "error starting log listener")
+		os.Exit(1)
+	}
+
+	server, err := services.NewServer(ctx, rlog)
+	if err != nil {
+		log.Error(ctx, "main:fail to init grpc server")
+		os.Exit(1)
+
+	}
 
 	serviceErr := make(chan error, 1)
 
 	go func() {
-		serviceErr <- grpcService.Serve(lis)
+		serviceErr <- server.GrpcServer.Serve(lis)
 	}()
 
-	err = grpcService.Serve(lis)
+	// err = server.Serve(lis)
 
 	if err != nil {
 		log.Info(ctx, "impossible to server %s", err)
@@ -60,7 +73,7 @@ func run(ctx context.Context, log *logger.Logger) {
 		fmt.Println(err)
 	case sig := <-shutdown:
 		fmt.Println("closing service", sig)
-		grpcService.Stop()
+		server.GrpcServer.Stop()
 		os.Exit(1)
 
 	}

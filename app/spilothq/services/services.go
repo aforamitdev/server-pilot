@@ -2,35 +2,22 @@ package services
 
 import (
 	"context"
-	"os"
 
-	"github.com/aforamitdev/server-pilot/pkg/logger"
-	"github.com/labstack/echo/v4"
+	"github.com/aforamitdev/server-pilot/internal/rsyslog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
 type Server struct {
-	grpcServer *grpc.Server
-	echoServer *echo.Echo
+	GrpcServer *grpc.Server
+	rlog       *rsyslog.RLog
 }
 
-func NewServer(ctx context.Context, grpcServer *grpc.Server) (*Server, error) {
-
-	return &Server{grpcServer: grpcServer}, nil
-
-}
-
-func Services(build string, shutdown chan os.Signal, log *logger.Logger) *grpc.Server {
-
+func NewServer(ctx context.Context, rlog *rsyslog.RLog) (*Server, error) {
 	grpcServer := grpc.NewServer()
 
 	reflection.Register(grpcServer)
 
-	// infoService := system.NewSystemInformer(log)
-
-	// system_proto.RegisterInformerServer(grpcServer, infoService)
-
-	return grpcServer
+	return &Server{GrpcServer: grpcServer, rlog: rlog}, nil
 
 }
