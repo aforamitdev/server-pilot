@@ -3,9 +3,7 @@ package main
 import (
 	"context"
 	"os"
-	"time"
 
-	pb "github.com/aforamitdev/server-pilot/internal/proto/system"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 	"google.golang.org/grpc"
@@ -31,16 +29,5 @@ func main() {
 		log.Error(ctx, "startup", "msg", err)
 	}
 	defer conn.Close()
-
-	client := pb.NewInformerClient(conn)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-
-	r, err := client.GetSystem(ctx, &pb.SystemRequest{})
-
-	if err != nil {
-		log.Error(ctx, "fail to get call getSystem", err)
-	}
-	log.Info(ctx, r.GetName())
 
 }

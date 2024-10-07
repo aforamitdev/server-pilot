@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "protogen/";
+
+message SystemRequest {
+
+}
+
+message SystemResponse {
+  string name = 1;
+}
+
+
+
+service SystemService {
+  rpc GetSystem(SystemRequest) returns (SystemResponse);  
+}
