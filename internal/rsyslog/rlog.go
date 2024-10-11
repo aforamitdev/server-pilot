@@ -1,6 +1,7 @@
 package rsyslog
 
 import (
+	"bytes"
 	"fmt"
 	"net"
 
@@ -25,7 +26,35 @@ func NewLogListener(port string) (*RLog, error) {
 	return &RLog{PC: pc}, nil
 }
 
-func (log *RLog) GetLogStream(*protogen.LogRequest, protogen.ServerPilot_GetLogStreamServer) error {
-	fmt.Println("error ")
-	return nil
+func (log *RLog) GetLogStream(req *protogen.LogRequest, server protogen.ServerPilot_GetLogStreamServer) error {
+
+	ctx := server.Context()
+
+	// var rev protogen.LogRequest
+	data := make([]byte, 1024)
+
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+		}
+
+		n, remoteAddr, err := log.PC.ReadFrom(data)
+		if err != nil {
+			fmt.Printf("error reading log")
+		}
+		prt := protogen.LogResponse{
+			Log: string(bytes.Trim(data, "\x00")),
+		}
+		fmt.Println(remoteAddr)
+		fmt.Println(n)
+
+		err = server.Send(&prt)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+	}
+
 }
