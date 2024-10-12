@@ -14,4 +14,6 @@ devhq:
 	
 devadmin:
 	air -c ./zarf/air/admin.toml
-	
+
+startui:
+	cd ./app/spilotui && wails dev

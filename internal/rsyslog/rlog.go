@@ -36,6 +36,7 @@ func (log *RLog) GetLogStream(req *protogen.LogRequest, server protogen.ServerPi
 	for {
 		select {
 		case <-ctx.Done():
+			fmt.Println("CANCEL")
 			return ctx.Err()
 		default:
 		}
