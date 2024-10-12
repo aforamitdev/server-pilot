@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { EventsOn } from '../wailsjs/runtime/runtime.js';
+import { ConnectHQ } from '../wailsjs/go/driver/GrpcDriver.js';
 
 function App() {
   const [state, setState] = useState('');
@@ -8,6 +9,16 @@ function App() {
       console.log(payload);
       setState(payload);
     });
+
+    ConnectHQ('127.0.0.1', '50051')
+      .then((res) => {
+        console.log(res);
+        console.log('res');
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('err');
+      });
   }, []);
   return (
     <div id='App' className='bg-white h-screen w-full'>

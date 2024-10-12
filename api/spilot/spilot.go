@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 
+	"github.com/aforamitdev/server-pilot/internal/protogen"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 	"google.golang.org/grpc"
@@ -24,21 +26,30 @@ func main() {
 	log = logger.NewWithEvents(os.Stdout, logger.LevelInfo, "SPILOT-CLIENT", traceIDFn, events)
 
 	ctx := context.Background()
-	conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient("127.0.0.1:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	fmt.Println(conn)
 	if err != nil {
 		log.Error(ctx, "startup", "msg", err)
 	}
+
 	defer conn.Close()
 
-	// client := pb.NewInformerClient(conn)
+	c := protogen.NewServerPilotClient(conn)
+	if err != nil {
+		fmt.Println(err)
+	}
+	r, err := c.GetLogStream(ctx, &protogen.LogRequest{})
 
-	// ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	if err != nil {
+		fmt.Println(err)
+	}
 
-	// defer cancel()
+	logchan := logstream(r)
+	for res := range logchan {
+		fmt.Println(res)
+	}
 
-	// r, err := client.GetSystem(ctx, &pb.SystemRequest{})
-
-	// stream, err := client.GetLogs(context.Background(), &pb.LogRequest{})
+	// r, err := client.
 
 	// fmt.Println(r.Name)
 
@@ -58,5 +69,23 @@ func main() {
 	// 		panic(err)
 	// 	}
 	// }
+
+}
+
+func logstream(r protogen.ServerPilot_GetLogStreamClient) chan *protogen.LogResponse {
+	logchan := make(chan *protogen.LogResponse)
+
+	go func() {
+		for {
+			resp, err := r.Recv()
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println(resp)
+			logchan <- resp
+		}
+	}()
+
+	return logchan
 
 }

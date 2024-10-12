@@ -2,11 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
-
-	"github.com/wailsapp/wails/v2/pkg/runtime"
-
-	"time"
 )
 
 // App struct
@@ -23,11 +18,7 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-	fmt.Println("stratup ")
-	for {
-		time.Sleep(time.Second * 1)
-		runtime.EventsEmit(a.ctx, "LOG:RECEIVED", fmt.Sprintf("send event on %d", time.Now().String()))
-	}
+
 }
 
 // // Greet returns a greeting for the given name
