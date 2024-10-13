@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"embed"
-	"spilotui/internal/driver"
 
+	driver "github.com/aforamitdev/server-pilot/api/spilot/driver/grpc"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -20,7 +20,7 @@ func main() {
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "spilotui",
+		Title:  "Server Pilot",
 		Width:  1024,
 		Height: 768,
 		AssetServer: &assetserver.Options{

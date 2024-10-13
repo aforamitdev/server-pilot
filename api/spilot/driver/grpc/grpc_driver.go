@@ -22,7 +22,7 @@ func (g *GrpcDriver) Startup(ctx context.Context) {
 	g.ctx = ctx
 }
 
-func (g *GrpcDriver) ConnectHQ(ip net.IP, port string) (success bool, err error) {
+func (g *GrpcDriver) ConnectServer(ip net.IP, port string) (success bool, err error) {
 	conn, err := grpc.NewClient(fmt.Sprintf(`%s:%s`, ip, port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	fmt.Println(fmt.Sprintf(`%s:%s`, ip, port))
@@ -31,6 +31,7 @@ func (g *GrpcDriver) ConnectHQ(ip net.IP, port string) (success bool, err error)
 		return false, err
 	}
 	fmt.Println(conn.GetState())
+
 	fmt.Println(err, "ERROR")
 	g.conn = conn
 
