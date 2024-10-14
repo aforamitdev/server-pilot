@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "protogen/";
+option go_package = "internal/protogen";
 
 
 message StatusRequest {
@@ -8,11 +8,7 @@ message StatusRequest {
 }
 
 message StatusResponse {
-  string name = 1;
+  string status = 1;
 }
 
 
-
-service StatusService {
-  rpc GetStatus(StatusRequest) returns (StatusResponse);  
-}

@@ -3,7 +3,6 @@ package services
 import (
 	"context"
 
-	"github.com/aforamitdev/server-pilot/internal/protogen"
 	"github.com/aforamitdev/server-pilot/internal/rsyslog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

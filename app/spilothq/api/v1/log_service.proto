@@ -1,0 +1,11 @@
+
+syntax = "proto3";
+
+package spilot.api.v1;
+
+option go_package = "gen/api/v1";
+
+
+service LogService {
+	// rpc GetLogs() returns (string);  	 
+  }

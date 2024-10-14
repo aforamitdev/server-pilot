@@ -3,6 +3,6 @@
 import {net} from '../models';
 import {context} from '../models';
 
-export function ConnectHQ(arg1:net.IP,arg2:string):Promise<boolean>;
+export function ConnectServer(arg1:net.IP,arg2:string):Promise<boolean>;
 
 export function Startup(arg1:context.Context):Promise<void>;

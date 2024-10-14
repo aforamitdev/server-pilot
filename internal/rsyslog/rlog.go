@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/aforamitdev/server-pilot/internal/protogen"
 	"github.com/pkg/errors"
 )
 
