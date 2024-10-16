@@ -1,4 +1,5 @@
 
+
 syntax = "proto3";
 
 package spilot.api.v1;
@@ -6,6 +7,12 @@ package spilot.api.v1;
 option go_package = "gen/api/v1";
 
 
+message LogResponse{
+
+}
+
+message LogRequest{}
+
 service LogService {
-	// rpc GetLogs() returns (string);  	 
+	rpc GetLogs(LogRequest) returns (LogRequest){}
   }

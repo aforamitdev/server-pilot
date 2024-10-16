@@ -1,11 +1,11 @@
 
 syntax = "proto3";
 
+
 package spilot.api.v1;
-import "internal/proto/status.proto";
+
 
 option go_package = "gen/api/v1";
-
 
 service SystemServices {
 	rpc GetStatus(StatusRequest) returns (StatusResponse);  	 

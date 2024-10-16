@@ -1,5 +1,5 @@
 gen:
-	protoc  --go_out=. --go-grpc_out=. internal/proto/*.proto;
+	protoc  --go_out=. --go-grpc_out=. app/spilothq/proto/*.proto;
 	
 genapi:
 	protoc  --go_out=app/spilothq/api --go-grpc_out=app/spilothq/api app/spilothq/api/v1/*.proto;

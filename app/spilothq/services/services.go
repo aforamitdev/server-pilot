@@ -22,7 +22,7 @@ func NewServer(ctx context.Context, rlog *rsyslog.RLog) (*Server, error) {
 
 	reflection.Register(grpcServer)
 
-	protogen.RegisterServerPilotServer(grpcServer, rlog)
+	// protogen.RegisterServerPilotServer(grpcServer, rlog)
 
 	return grpcApiService, nil
 
