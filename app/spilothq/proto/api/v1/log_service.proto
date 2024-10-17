@@ -8,11 +8,13 @@ option go_package = "gen/api/v1";
 
 
 message LogResponse{
-
+	string log=1;
 }
 
-message LogRequest{}
+message LogRequest{
+	string log=1;
+}
 
 service LogService {
-	rpc GetLogs(LogRequest) returns (LogRequest){}
+	rpc GetLogs(LogRequest) returns (stream LogResponse){}
   }

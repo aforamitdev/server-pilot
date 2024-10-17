@@ -10,6 +10,7 @@ import (
 
 	"github.com/aforamitdev/server-pilot/app/spilothq/services"
 	"github.com/aforamitdev/server-pilot/internal/rsyslog"
+	"github.com/aforamitdev/server-pilot/internal/system"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 )
@@ -44,12 +45,13 @@ func run(ctx context.Context, log *logger.Logger) {
 
 	// start rsys log listener
 	rlog, err := rsyslog.NewLogListener(":5000")
+	system := system.NewSystemInformer(log)
 	if err != nil {
 		log.Error(ctx, "error starting log listener")
 		os.Exit(1)
 	}
 
-	server, err := services.NewServer(ctx, rlog)
+	server, err := services.NewServer(ctx, rlog, system)
 	if err != nil {
 		log.Error(ctx, "main:fail to init grpc server")
 		os.Exit(1)

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 
+	apiv1 "github.com/aforamitdev/server-pilot/app/spilothq/gen/proto/api/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
@@ -34,10 +35,29 @@ func (g *GrpcDriver) ConnectServer(ip net.IP, port string) (success bool, err er
 	fmt.Println(err, "ERROR")
 	g.conn = conn
 
+	s := apiv1.NewSystemServicesClient(conn)
+
+	req := apiv1.GetStatusRequest{}
+	res, err := s.GetStatus(g.ctx, &req)
+	if err != nil {
+		fmt.Println(err, "Errr")
+	}
+	fmt.Println(res)
+
 	return true, nil
 
 }
 
 func (g *GrpcDriver) GetServerStatus() {
+
+	// ctx := context.Background()
+	// s := apiv1.NewSystemServicesClient(g.conn)
+
+	// req := apiv1.GetStatusRequest{}
+	// res, err := s.GetStatus(ctx, &req)
+	// if err != nil {
+	// 	fmt.Println(err, "Errr")
+	// }
+	fmt.Println()
 
 }

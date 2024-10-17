@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/aforamitdev/server-pilot/internal/protogen"
+	apiv1 "github.com/aforamitdev/server-pilot/app/spilothq/gen/proto/api/v1"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
 	"github.com/aforamitdev/server-pilot/pkg/web"
 	"google.golang.org/grpc"
@@ -34,11 +34,12 @@ func main() {
 
 	defer conn.Close()
 
-	c := protogen.NewServerPilotClient(conn)
+	c := apiv1.NewLogServiceClient(conn)
+	// l:=apiv1.
 	if err != nil {
 		fmt.Println(err)
 	}
-	r, err := c.GetLogStream(ctx, &protogen.LogRequest{})
+	r, err := c.GetLogs(ctx, &apiv1.LogRequest{})
 
 	if err != nil {
 		fmt.Println(err)
@@ -72,8 +73,9 @@ func main() {
 
 }
 
-func logstream(r protogen.ServerPilot_GetLogStreamClient) chan *protogen.LogResponse {
-	logchan := make(chan *protogen.LogResponse)
+// ServerStreamingClient[apiv1.LogResponse]
+func logstream(r grpc.ServerStreamingClient[apiv1.LogResponse]) chan *apiv1.LogResponse {
+	logchan := make(chan *apiv1.LogResponse)
 
 	go func() {
 		for {

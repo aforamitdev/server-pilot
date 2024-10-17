@@ -1,0 +1,42 @@
+swagger: "2.0"
+info:
+  title: proto/api/v1/log_service.proto
+  version: version not set
+tags:
+  - name: LogService
+  - name: SystemServices
+consumes:
+  - application/json
+produces:
+  - application/json
+paths: {}
+definitions:
+  protobufAny:
+    type: object
+    properties:
+      '@type':
+        type: string
+    additionalProperties: {}
+  rpcStatus:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      details:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/protobufAny'
+  v1GetStatusResponse:
+    type: object
+    properties:
+      system:
+        type: string
+  v1LogResponse:
+    type: object
+    properties:
+      log:
+        type: string

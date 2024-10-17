@@ -5,4 +5,6 @@ import {context} from '../models';
 
 export function ConnectServer(arg1:net.IP,arg2:string):Promise<boolean>;
 
+export function GetServerStatus():Promise<void>;
+
 export function Startup(arg1:context.Context):Promise<void>;

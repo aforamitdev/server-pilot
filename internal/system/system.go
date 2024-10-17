@@ -2,14 +2,15 @@ package system
 
 import (
 	"context"
-	"os/exec"
+	"fmt"
 
-	"github.com/aforamitdev/server-pilot/internal/protogen"
+	apiv1 "github.com/aforamitdev/server-pilot/app/spilothq/gen/proto/api/v1"
 	"github.com/aforamitdev/server-pilot/pkg/logger"
+	"github.com/shirou/gopsutil/v3/host"
 )
 
 type SystemInformer struct {
-	protogen.UnimplementedStatusServiceServer
+	apiv1.UnimplementedSystemServicesServer
 	log *logger.Logger
 }
 
@@ -19,16 +20,18 @@ func NewSystemInformer(log *logger.Logger) *SystemInformer {
 	}
 }
 
-func (s *SystemInformer) GetStatus(ctx context.Context, statusRequest *protogen.StatusRequest) (*protogen.StatusResponse, error) {
+func (s *SystemInformer) GetStatus(ctx context.Context, req *apiv1.GetStatusRequest) (*apiv1.GetStatusResponse, error) {
+	fmt.Println("rand")
+	host, err := host.Info()
 
-	cmd := exec.Command("lsb_release", "", "--all")
-	output, err := cmd.Output()
 	if err != nil {
+		fmt.Println("erroron ")
+		fmt.Println(err)
 		return nil, err
 	}
-	statusResp := protogen.StatusResponse{
-		Status: string(output),
-	}
-	return &statusResp, nil
+	fmt.Println("error command exex")
+	fmt.Println(string(host.OS))
+	rsp := *&apiv1.GetStatusResponse{System: string(host.OS)}
+	return &rsp, nil
 
 }

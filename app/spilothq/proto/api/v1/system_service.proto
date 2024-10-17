@@ -1,0 +1,21 @@
+
+syntax = "proto3";
+
+
+package spilot.api.v1;
+
+
+option go_package = "gen/api/v1";
+
+service SystemServices {
+	rpc GetStatus(GetStatusRequest) returns (GetStatusResponse);  	 
+  }
+
+
+message GetStatusRequest{
+	
+}
+
+message GetStatusResponse{
+	string system=1;
+}

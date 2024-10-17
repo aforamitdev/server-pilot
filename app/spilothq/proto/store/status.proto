@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-option go_package = "/app/spilothq/api/gen/proto";
+package spilot.store;
+
+option go_package = "gen/store";
 
 
 message StatusRequest {

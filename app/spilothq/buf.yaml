@@ -1,8 +1,6 @@
 # For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
 version: v2
-modules:
-  - path: proto
-  - path: spilothq/api/v1
+name: buf.build/aforamitdev/server-pilot
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/grpc-ecosystem/grpc-gateway

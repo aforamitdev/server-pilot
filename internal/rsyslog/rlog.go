@@ -1,16 +1,17 @@
 package rsyslog
 
 import (
-	"bytes"
+	"context"
 	"fmt"
 	"net"
 
+	apiv1 "github.com/aforamitdev/server-pilot/app/spilothq/gen/proto/api/v1"
 	"github.com/pkg/errors"
 )
 
 type RLog struct {
 	// packet listener
-	protogen.UnimplementedServerPilotServer
+	apiv1.UnimplementedLogServiceServer
 	// protogen.ServerPilotServer
 
 	PC net.PacketConn
@@ -25,11 +26,11 @@ func NewLogListener(port string) (*RLog, error) {
 	return &RLog{PC: pc}, nil
 }
 
-func (log *RLog) GetLogStream(req *protogen.LogRequest, server protogen.ServerPilot_GetLogStreamServer) error {
-
-	ctx := server.Context()
+func (log *RLog) GetLogs(req *apiv1.LogRequest, srv apiv1.LogService_GetLogsServer) error {
 
 	// var rev protogen.LogRequest
+	ctx := context.Background()
+
 	data := make([]byte, 1024)
 
 	for {
@@ -44,13 +45,13 @@ func (log *RLog) GetLogStream(req *protogen.LogRequest, server protogen.ServerPi
 		if err != nil {
 			fmt.Printf("error reading log")
 		}
-		prt := protogen.LogResponse{
-			Log: string(bytes.Trim(data, "\x00")),
+		prt := &apiv1.LogResponse{
+			Log: string(data),
 		}
 		fmt.Println(remoteAddr)
 		fmt.Println(n)
 
-		err = server.Send(&prt)
+		err = srv.Send(prt)
 		if err != nil {
 			fmt.Println(err)
 		}
