@@ -48,16 +48,20 @@ func (g *GrpcDriver) ConnectServer(ip net.IP, port string) (success bool, err er
 
 }
 
-func (g *GrpcDriver) GetServerStatus() {
+func (g *GrpcDriver) GetServerStatus() apiv1.GetStatusResponse {
 
-	// ctx := context.Background()
-	// s := apiv1.NewSystemServicesClient(g.conn)
+	ctx := context.Background()
+	s := apiv1.NewSystemServicesClient(g.conn)
 
-	// req := apiv1.GetStatusRequest{}
-	// res, err := s.GetStatus(ctx, &req)
+	req := apiv1.GetStatusRequest{}
+	res, err := s.GetStatus(ctx, &req)
+	if err != nil {
+		fmt.Println(err)
+	}
 	// if err != nil {
 	// 	fmt.Println(err, "Errr")
 	// }
-	fmt.Println()
+	fmt.Println(res, "RES")
+	return *res
 
 }
