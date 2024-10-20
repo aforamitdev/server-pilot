@@ -11,7 +11,7 @@ const root = createRoot(container!);
 
 root.render(
   <React.StrictMode>
-    <div id='App' className=''>
+    <div id='App' className='font-nato'>
       <Theme
         accentColor='crimson'
         grayColor='sand'

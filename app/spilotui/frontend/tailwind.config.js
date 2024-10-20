@@ -18,7 +18,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        Inter: ['Inter', 'serif'],
+        nato: ['Noto Sans'],
       },
       colors: {
         border: 'hsl(var(--border))',

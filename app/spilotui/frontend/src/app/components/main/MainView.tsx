@@ -28,7 +28,7 @@ function MainView({
           sizes
         )}`;
       }}
-      className='h-full  items-stretch'
+      className='h-full  items-stretch  '
     >
       <ResizablePanel
         defaultSize={defaultLayout[0]}
@@ -54,11 +54,11 @@ function MainView({
       >
         <div
           className={cn(
-            'flex h-[52px] items-center justify-center',
+            'flex  items-center justify-center bg-slate-100 h-screen border-r',
             isCollapsed ? 'h-[52px]' : 'px-2'
           )}
         >
-          asasasas
+          <div>as</div>
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />
