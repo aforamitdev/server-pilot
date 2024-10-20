@@ -58,7 +58,7 @@ function MainView({
             isCollapsed ? 'h-[52px]' : 'px-2'
           )}
         >
-          asas
+          asasasas
         </div>
       </ResizablePanel>
       <ResizableHandle withHandle />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import './output.css';
 import '@radix-ui/themes/styles.css';
+import './output.css';
 import App from './App';
 import { Theme, ThemePanel } from '@radix-ui/themes';
 
