@@ -5,3 +5,4 @@ client/build/bin
 client/node_modules
 client/frontend/dist
 tmp
+node_modules/

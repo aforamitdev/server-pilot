@@ -28,7 +28,6 @@ func NewLogListener(port string) (*RLog, error) {
 
 func (log *RLog) GetLogs(req *apiv1.LogRequest, srv apiv1.LogService_GetLogsServer) error {
 
-	// var rev protogen.LogRequest
 	ctx := context.Background()
 
 	data := make([]byte, 1024)
