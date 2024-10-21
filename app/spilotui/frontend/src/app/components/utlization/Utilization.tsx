@@ -7,13 +7,7 @@ import {
   IconButton,
   Text,
 } from '@radix-ui/themes';
-import {
-  ArrowLeft,
-  ChevronLeft,
-  MoveLeft,
-  CheckCircle2,
-  ChevronDown,
-} from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ChevronDown } from 'lucide-react';
 
 type Props = {};
 
@@ -21,9 +15,9 @@ const Utilization = (props: Props) => {
   return (
     <Box className='h-screen bg-gray-100'>
       <Container className='py-5 mx-5'>
-        <div className='flex  items-center'>
-          <ArrowLeft size={16} absoluteStrokeWidth />
-          <Text className='px-2 text-sm '>Dashboard</Text>
+        <div className='flex  items-center text-gray-600 text-xs'>
+          <ArrowLeft size={13} />
+          <Text className='px-2'>Dashboard</Text>
         </div>
 
         {/* status */}
@@ -37,7 +31,9 @@ const Utilization = (props: Props) => {
           {/* status */}
           <div>
             <div className='flex items-center'>
-              <p className='text-xl font-medium leading-5 text-sm'>127.0.0.1</p>
+              <p className='text-xl font-medium leading-5 text-gray-800'>
+                127.0.0.1
+              </p>
               <ChevronDown size={16} />
             </div>
             <p className='text-sm text-green-700'>check every 30 seconds</p>
@@ -58,7 +54,7 @@ const Utilization = (props: Props) => {
           <div>
             <div className='font-medium'>System Utilization</div>
             <div className='text-xs text-gray-600'>
-              Data is updated every 30 secons{' '}
+              Data is updated every 30 seconds{' '}
             </div>
           </div>
         </div>
