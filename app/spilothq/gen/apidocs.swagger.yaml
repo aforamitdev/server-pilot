@@ -35,6 +35,8 @@ definitions:
     properties:
       system:
         type: string
+      uptime:
+        type: string
   v1LogResponse:
     type: object
     properties:

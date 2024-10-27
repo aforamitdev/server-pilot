@@ -5,9 +5,9 @@
 // source: proto/api/v1/log_service.proto
 
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from '@bufbuild/protobuf/wire';
+import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
 
-export const protobufPackage = 'spilot.api.v1';
+export const protobufPackage = "spilot.api.v1";
 
 export interface LogResponse {
   log: string;
@@ -18,23 +18,19 @@ export interface LogRequest {
 }
 
 function createBaseLogResponse(): LogResponse {
-  return { log: '' };
+  return { log: "" };
 }
 
 export const LogResponse: MessageFns<LogResponse> = {
-  encode(
-    message: LogResponse,
-    writer: BinaryWriter = new BinaryWriter()
-  ): BinaryWriter {
-    if (message.log !== '') {
+  encode(message: LogResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.log !== "") {
       writer.uint32(10).string(message.log);
     }
     return writer;
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): LogResponse {
-    const reader =
-      input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLogResponse();
     while (reader.pos < end) {
@@ -61,29 +57,25 @@ export const LogResponse: MessageFns<LogResponse> = {
   },
   fromPartial(object: DeepPartial<LogResponse>): LogResponse {
     const message = createBaseLogResponse();
-    message.log = object.log ?? '';
+    message.log = object.log ?? "";
     return message;
   },
 };
 
 function createBaseLogRequest(): LogRequest {
-  return { log: '' };
+  return { log: "" };
 }
 
 export const LogRequest: MessageFns<LogRequest> = {
-  encode(
-    message: LogRequest,
-    writer: BinaryWriter = new BinaryWriter()
-  ): BinaryWriter {
-    if (message.log !== '') {
+  encode(message: LogRequest, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
+    if (message.log !== "") {
       writer.uint32(10).string(message.log);
     }
     return writer;
   },
 
   decode(input: BinaryReader | Uint8Array, length?: number): LogRequest {
-    const reader =
-      input instanceof BinaryReader ? input : new BinaryReader(input);
+    const reader = input instanceof BinaryReader ? input : new BinaryReader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLogRequest();
     while (reader.pos < end) {
@@ -110,18 +102,18 @@ export const LogRequest: MessageFns<LogRequest> = {
   },
   fromPartial(object: DeepPartial<LogRequest>): LogRequest {
     const message = createBaseLogRequest();
-    message.log = object.log ?? '';
+    message.log = object.log ?? "";
     return message;
   },
 };
 
 export type LogServiceDefinition = typeof LogServiceDefinition;
 export const LogServiceDefinition = {
-  name: 'LogService',
-  fullName: 'spilot.api.v1.LogService',
+  name: "LogService",
+  fullName: "spilot.api.v1.LogService",
   methods: {
     getLogs: {
-      name: 'GetLogs',
+      name: "GetLogs",
       requestType: LogRequest,
       requestStream: false,
       responseType: LogResponse,
@@ -131,23 +123,12 @@ export const LogServiceDefinition = {
   },
 } as const;
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends globalThis.Array<infer U>
-  ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
+  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 export interface MessageFns<T> {

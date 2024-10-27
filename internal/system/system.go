@@ -26,7 +26,7 @@ func (s *SystemInformer) GetStatus(ctx context.Context, req *apiv1.GetStatusRequ
 		return nil, err
 	}
 
-	rsp := apiv1.GetStatusResponse{System: string(host.OS)}
+	rsp := apiv1.GetStatusResponse{System: string(host.String())}
 	return &rsp, nil
 
 }

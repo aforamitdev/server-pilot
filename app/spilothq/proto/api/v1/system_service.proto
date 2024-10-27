@@ -7,8 +7,12 @@ package spilot.api.v1;
 
 option go_package = "gen/api/v1";
 
+
+import "google/protobuf/descriptor.proto";
+
+
 service SystemServices {
-	rpc GetStatus(GetStatusRequest) returns (GetStatusResponse);  	 
+	rpc GetStatus(GetStatusRequest) returns (GetStatusResponse);
   }
 
 
@@ -18,4 +22,6 @@ message GetStatusRequest{
 
 message GetStatusResponse{
 	string system=1;
+	string uptime=2;
+	
 }

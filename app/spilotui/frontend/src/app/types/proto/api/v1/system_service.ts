@@ -14,6 +14,7 @@ export interface GetStatusRequest {
 
 export interface GetStatusResponse {
   system: string;
+  uptime: string;
 }
 
 function createBaseGetStatusRequest(): GetStatusRequest {
@@ -51,13 +52,16 @@ export const GetStatusRequest: MessageFns<GetStatusRequest> = {
 };
 
 function createBaseGetStatusResponse(): GetStatusResponse {
-  return { system: "" };
+  return { system: "", uptime: "" };
 }
 
 export const GetStatusResponse: MessageFns<GetStatusResponse> = {
   encode(message: GetStatusResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.system !== "") {
       writer.uint32(10).string(message.system);
+    }
+    if (message.uptime !== "") {
+      writer.uint32(18).string(message.uptime);
     }
     return writer;
   },
@@ -76,6 +80,13 @@ export const GetStatusResponse: MessageFns<GetStatusResponse> = {
 
           message.system = reader.string();
           continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.uptime = reader.string();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -91,6 +102,7 @@ export const GetStatusResponse: MessageFns<GetStatusResponse> = {
   fromPartial(object: DeepPartial<GetStatusResponse>): GetStatusResponse {
     const message = createBaseGetStatusResponse();
     message.system = object.system ?? "";
+    message.uptime = object.uptime ?? "";
     return message;
   },
 };

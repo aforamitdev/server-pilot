@@ -16,7 +16,7 @@ type Props = {
 function MainView({
   defaultLayout = [20, 32, 48],
   defaultCollapsed = false,
-  navCollapsedSize = 30,
+  navCollapsedSize = 5,
 }: Props) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
 
@@ -55,7 +55,7 @@ function MainView({
         <div
           className={cn(
             'flex  items-center justify-center bg-slate-100 h-screen border-r',
-            isCollapsed ? 'h-[52px]' : 'px-2'
+            isCollapsed ? '' : 'px-2'
           )}
         >
           <div>as</div>
