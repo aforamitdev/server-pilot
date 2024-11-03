@@ -18,7 +18,7 @@ type RLog struct {
 }
 
 func NewLogListener(port string) (*RLog, error) {
-
+	fmt.Println(port)
 	pc, err := net.ListenPacket("udp", port)
 	if err != nil {
 		return nil, errors.Wrap(err, "fail to start UDP listeners, rsyslog")
@@ -27,7 +27,7 @@ func NewLogListener(port string) (*RLog, error) {
 }
 
 func (log *RLog) GetLogs(req *apiv1.LogRequest, srv apiv1.LogService_GetLogsServer) error {
-
+	fmt.Println("get logs ")
 	ctx := context.Background()
 
 	data := make([]byte, 1024)
@@ -44,6 +44,7 @@ func (log *RLog) GetLogs(req *apiv1.LogRequest, srv apiv1.LogService_GetLogsServ
 		if err != nil {
 			fmt.Printf("error reading log")
 		}
+		fmt.Println(string(data))
 		prt := &apiv1.LogResponse{
 			Log: string(data),
 		}

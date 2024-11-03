@@ -32,7 +32,6 @@ func (g *GrpcDriver) ConnectServer(ip net.IP, port string) (success bool, err er
 	}
 	fmt.Println(conn.GetState())
 
-	fmt.Println(err, "ERROR")
 	g.conn = conn
 
 	s := apiv1.NewSystemServicesClient(conn)
@@ -48,9 +47,8 @@ func (g *GrpcDriver) ConnectServer(ip net.IP, port string) (success bool, err er
 
 }
 
-func (g *GrpcDriver) GetServerStatus() apiv1.GetStatusResponse {
+func (g *GrpcDriver) GetServerStatus(ctx context.Context) apiv1.GetStatusResponse {
 
-	ctx := context.Background()
 	s := apiv1.NewSystemServicesClient(g.conn)
 
 	req := apiv1.GetStatusRequest{}
@@ -58,10 +56,7 @@ func (g *GrpcDriver) GetServerStatus() apiv1.GetStatusResponse {
 	if err != nil {
 		fmt.Println(err)
 	}
-	// if err != nil {
-	// 	fmt.Println(err, "Errr")
-	// }
-	fmt.Println(res, "RES")
+
 	return *res
 
 }

@@ -35,7 +35,7 @@ func main() {
 	defer conn.Close()
 
 	c := apiv1.NewLogServiceClient(conn)
-	// l:=apiv1.
+
 	if err != nil {
 		fmt.Println(err)
 	}
