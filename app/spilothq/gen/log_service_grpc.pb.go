@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: proto/api/v1/log_service.proto
+// source: log_service.proto
 
 package apiv1
 
@@ -120,5 +120,5 @@ var LogService_ServiceDesc = grpc.ServiceDesc{
 			ServerStreams: true,
 		},
 	},
-	Metadata: "proto/api/v1/log_service.proto",
+	Metadata: "log_service.proto",
 }

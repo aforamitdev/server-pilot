@@ -49,10 +49,10 @@ func run(ctx context.Context, log *logger.Logger) {
 	}
 
 	server, err := services.NewServer(ctx, log)
+
 	if err != nil {
 		log.Error(ctx, "main:fail to init grpc server")
 		os.Exit(1)
-
 	}
 
 	serviceErr := make(chan error, 1)
@@ -61,8 +61,6 @@ func run(ctx context.Context, log *logger.Logger) {
 		serviceErr <- server.GrpcServer.Serve(lis)
 	}()
 
-	// err = server.Serve(lis)
-
 	if err != nil {
 		log.Info(ctx, "impossible to server %s", err)
 	}
@@ -70,6 +68,8 @@ func run(ctx context.Context, log *logger.Logger) {
 	select {
 	case err := <-serviceErr:
 		fmt.Println(err)
+		os.Exit(1)
+
 	case sig := <-shutdown:
 		fmt.Println("closing service", sig)
 		server.GrpcServer.Stop()

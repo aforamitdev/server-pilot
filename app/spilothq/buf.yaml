@@ -1,6 +1,10 @@
 # For details on buf.yaml configuration, visit https://buf.build/docs/configuration/v2/buf-yaml
 version: v2
-name: buf.build/aforamitdev/server-pilot
+# name: buf.build/aforamitdev/server-pilot
+modules:
+  - path: proto/api/v1/
+  - path: proto/api/store/
+
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/grpc-ecosystem/grpc-gateway

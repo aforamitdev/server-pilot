@@ -1,17 +1,14 @@
 syntax = "proto3";
 
-package spilot.store;
 
-option go_package = "gen/store";
+package spilot.api.store;
 
 
-message StatusRequest {
+option go_package = "gen/api/store";
 
+
+
+message Status{
+	string message=1;
 }
-
-message StatusResponse {
-  string status = 1;
-  
-}
-
 

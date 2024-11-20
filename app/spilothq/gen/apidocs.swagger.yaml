@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: proto/api/v1/log_service.proto
+  title: log_service.proto
   version: version not set
 tags:
   - name: LogService
@@ -34,8 +34,6 @@ definitions:
     type: object
     properties:
       system:
-        type: string
-      uptime:
         type: string
   v1LogResponse:
     type: object

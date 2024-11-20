@@ -3,7 +3,6 @@ package services
 import (
 	"context"
 
-	apiv1 "github.com/aforamitdev/server-pilot/app/spilothq/gen/proto/api/v1"
 	"github.com/aforamitdev/server-pilot/internal/rsyslog"
 	"github.com/aforamitdev/server-pilot/internal/system"
 	"github.com/aforamitdev/server-pilot/pkg/logger"

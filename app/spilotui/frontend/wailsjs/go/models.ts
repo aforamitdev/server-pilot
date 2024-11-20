@@ -2,6 +2,7 @@ export namespace apiv1 {
 	
 	export class GetStatusResponse {
 	    system?: string;
+	    uptime?: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new GetStatusResponse(source);
@@ -10,6 +11,7 @@ export namespace apiv1 {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.system = source["system"];
+	        this.uptime = source["uptime"];
 	    }
 	}
 

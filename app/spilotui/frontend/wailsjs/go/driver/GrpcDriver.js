@@ -6,8 +6,8 @@ export function ConnectServer(arg1, arg2) {
   return window['go']['driver']['GrpcDriver']['ConnectServer'](arg1, arg2);
 }
 
-export function GetServerStatus() {
-  return window['go']['driver']['GrpcDriver']['GetServerStatus']();
+export function GetServerStatus(arg1) {
+  return window['go']['driver']['GrpcDriver']['GetServerStatus'](arg1);
 }
 
 export function Startup(arg1) {
